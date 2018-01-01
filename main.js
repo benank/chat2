@@ -150,21 +150,25 @@ function FormatPlayerMessage(msg, player, channel)
         pid: player.networkId
     }
 
-    if (player.tag == undefined)
-    {
-        html = `<span class="player-name" style="color:${player.color};" id="n_${player.networkId}"></span>[#FFFFFF]: <span class="message-body" id="m_"></span>`;
+	let isAdmin = false;
+	
+	let htmlTags = "";
+	if (player.tags != undefined) {
+		for (let t in player.tags) {
+			let tag = player.tags[t];
+			htmlTags += `<span id="tag" style="background-color:${tag.color};">${tag.name}</span>`;
+			
+			isAdmin = (tag.name.toUpperCase() === "ADMIN");
+		}
+	}
+	
+	html = `${htmlTags}<span class="player-name" style="color: ${player.color};" id="n_${player.networkId}"></span>[#FFFFFF]: <span class="message-body" id="m_"></span>`;
 
-    }
-    else
-    {
-        html = `<span id="tag" style="background-color:${player.tag.color};">${player.tag.name}</span><span class="player-name" style="color: ${player.color};" id="n_${player.networkId}"></span>[#FFFFFF]: <span class="message-body" id="m_"></span>`;
+	if (msg.indexOf(`@everyone`) > -1 && isAdmin)
+	{
+		obj.everyone = true;
+	}
 
-        if (msg.indexOf(`@everyone`) > -1 && player.tag.name === 'Admin')
-        {
-            obj.everyone = true;
-        }
-
-    }
     
     html = FormatChatMessage(html);
     obj.html = html;
