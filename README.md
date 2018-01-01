@@ -80,13 +80,15 @@ player.tag =
 You can mention players, similar to Discord.
 
 **Mentioning a specific player**
+
 1. Start typing your message: `hello`
 2. Start typing the @ part of the message: `hello @ri`
 3. Once you have part of the player's name, press TAB to autocomplete: `hello @"rico"`
 4. If it isn't the right player, you can hit TAB again to cycle through players.
-5. **You __must__ use TAB and autocomplete to mention a player, otherwise it will fail.
+5. **You __must__ use TAB and autocomplete to mention a player, otherwise it will fail.**
 
 **Mentioning Everyone**
+
 In order to mention everyone, the player must have the `Admin` tag. If the message is sent by the server (through `send` or `broadcast`), it can mention everyone as well.
 
 Player:
