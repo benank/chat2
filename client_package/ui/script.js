@@ -548,6 +548,11 @@ $(document).ready(function()
         }
     })
 
+    jcmp.AddEvent('chat2/RemovePlayer', (name) => 
+    {
+        if (players.indexOf(name) > -1) {players.splice(players.indexOf(name), 1);}
+    })
+
     // Store name for @ usage
     jcmp.AddEvent('chat2/StoreName', (name) => 
     {

@@ -60,6 +60,11 @@ jcmp.events.AddRemoteCallable('chat2/AddPlayer', (id, name) =>
     }
 })
 
+jcmp.events.AddRemoteCallable('chat2/RemovePlayer', (name) => 
+{
+    jcmp.ui.CallEvent('chat2/RemovePlayer', name);
+})
+
 jcmp.events.AddRemoteCallable('chat2/InitPlayers', (data) => 
 {
     data = JSON.parse(data);

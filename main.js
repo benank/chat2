@@ -299,6 +299,11 @@ function LogMessage(msg, channel, player)
     });
 }
 
+jcmp.events.Add('PlayerDestroyed', (player) => 
+{
+    jcmp.events.CallRemote('chat2/RemovePlayer', null, player.name);
+})
+
 /**
  * Gets a nicely formatted time string.
  * 
