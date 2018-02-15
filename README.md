@@ -3,6 +3,14 @@ An advanced chat solution for JC3MP
 
 *Much of this readme is from the default chat readme*
 
+## Transitioning from default chat to chat2
+It's pretty simple, except there are a few changes and a little bit of configuration you'll need to do. These are some basic steps to help you get started.
+1. Delete the old chat package.
+2. Install the chat2 package.
+3. Inside `config.js`, modify it to include the channels that you want, in `default_channels`. If a channel with the name `Local` is specified, then it will be used as a local chat channel where you can only talk to players who are nearby. This local chat distance is specified by `local_distance` in `config.js`.
+4. Admins won't have their stars anymore, and if you implemented custom tags, you'll need to do a little bit of work to get tags to appear again. See the [Tags](#Tags) section on more information about how you can implement nametags.
+5. Continue on to the next section to finish up implementing chat2.
+
 ## Using the Package as Dependency
 When you want to use the chat as a dependency for your package, make sure to add it to your `jcmp_dependencies` array. You'll probably want to replace all instance of `chat` with `chat2` in dependencies of your packages. If you don't want to do that, you can change the name of this package to `chat` in the `package.json`s. You can then use the following code snippet to get the chat object:
 
