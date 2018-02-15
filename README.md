@@ -1,6 +1,11 @@
 # chat2
 An advanced chat solution for JC3MP
 
+![](https://media.giphy.com/media/ftdALo80vqCZT45oT8/giphy.gif)
+![](https://i.imgur.com/CJc7Znd.png)
+![](https://media.giphy.com/media/7NDDKWoQmYcoRvKziX/giphy.gif)
+![](https://i.imgur.com/X85vBM7.png)
+
 *Much of this readme is from the default chat readme*
 
 ## Transitioning from default chat to chat2
