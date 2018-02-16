@@ -138,6 +138,26 @@ jcmp.events.Add("PlayerCreated", player => {
     jcmp.events.CallRemote("freeroam_player_created", null, JSON.stringify(data));
 });
 ```
+4. Now we need to stop the default admin start from appearing. Navigate to `freeroam/events/chat.js`. See this?
+```javascript
+jcmp.events.Add('chat_message', (player, message) => {
+    if (typeof player.freeroam === 'undefined')
+        return `${player.escapedNametagName}: ${message}`;
+
+    console.log(`${player.escapedNametagName}: ${message}`);
+    return `${freeroam.utils.isAdmin(player) ? '<div class="admin-logo"></div>' : ''}[${player.freeroam.colour}] ${player.escapedNametagName}[#FFFFFF]: ${message}`;
+});
+```
+Comment all of it. It should now look like this:
+```javascript
+/*jcmp.events.Add('chat_message', (player, message) => {
+    if (typeof player.freeroam === 'undefined')
+        return `${player.escapedNametagName}: ${message}`;
+
+    console.log(`${player.escapedNametagName}: ${message}`);
+    return `${freeroam.utils.isAdmin(player) ? '<div class="admin-logo"></div>' : ''}[${player.freeroam.colour}] ${player.escapedNametagName}[#FFFFFF]: ${message}`;
+});*/
+```
 
 If you did everything correctly, any admins registered in the freeroam package should have Admin tags in chat.
 
