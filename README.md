@@ -17,7 +17,7 @@ It's pretty simple, except there are a few changes and a little bit of configura
 5. Continue on to the next section to finish up implementing chat2.
 
 ## Using the Package as Dependency
-When you want to use the chat as a dependency for your package, make sure to add it to your `jcmp_dependencies` array. You'll probably want to replace all instance of `chat` with `chat2` in dependencies of your packages. If you don't want to do that, you can change the name of this package to `chat` in the `package.json`s. You can then use the following code snippet to get the chat object:
+When you want to use the chat as a dependency for your package, make sure to add it to your `jcmp_dependencies` array. You'll probably want to replace all instance of `chat` with `chat2` in dependencies of your packages. If you don't want to do that, you can change the name of this package to `chat` in the `package.json` in both this directory and within the `client_package` directory. You can then use the following code snippet to get the chat object:
 
 ```javascript
 const chat = jcmp.events.Call('get_chat')[0];
@@ -88,6 +88,58 @@ player.tag =
     color: '#FF0000'
 }
 ```
+
+If you want to replace the default admin star with an Admin tag, here are some steps on doing that.
+
+1. Navigate to `freeroam/events/player.js`.
+2. Inside the `PlayerCreated` event, near line 34, add this line:
+```javascript
+player.tag = 
+{
+    name: 'Admin',
+    color: '#FF0000'
+}
+```
+
+3. The entire `PlayerCreated` event should now look like this:
+```javascript
+jcmp.events.Add("PlayerCreated", player => {
+    player.escapedNametagName = player.name.replace(/</g, '&lt;').replace(/>/g, '&gt;').substring(0, 40);
+    console.log(`${player.escapedNametagName} has joined.`);
+    freeroam.chat.broadcast(`** ${player.escapedNametagName} has joined.`, freeroam.config.colours.connection);
+
+    const colour = freeroam.colours.randomColor();
+    player.freeroam = {
+        colour: colour,
+        colour_rgb: freeroam.utils.hexToRGB(colour),
+        kills: 0,
+        deaths: 0,
+        custom_time_set: false,
+        vehicle_nitro_toggled: false,
+        vehicle_turbojump_toggled: false
+    };
+
+    player.group = null;
+    player.groupInvite = null;
+
+    const data = {
+        id: player.networkId,
+        name: player.escapedNametagName,
+        colour: player.freeroam.colour,
+        isAdmin: freeroam.utils.isAdmin(player),
+    };
+
+    player.tag = 
+    {
+        name: 'Admin',
+        color: '#FF0000'
+    }
+
+    jcmp.events.CallRemote("freeroam_player_created", null, JSON.stringify(data));
+});
+```
+
+If you did everything correctly, any admins registered in the freeroam package should have Admin tags in chat.
 
 ## Mentioning
 You can mention players, similar to Discord.
