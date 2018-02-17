@@ -129,10 +129,13 @@ jcmp.events.Add("PlayerCreated", player => {
         isAdmin: freeroam.utils.isAdmin(player),
     };
 
-    player.tag = 
+    if (freeroam.utils.isAdmin(player))
     {
-        name: 'Admin',
-        color: '#FF0000'
+        player.tag = 
+        {
+            name: 'Admin',
+            color: '#FF0000'
+        }
     }
 
     jcmp.events.CallRemote("freeroam_player_created", null, JSON.stringify(data));
