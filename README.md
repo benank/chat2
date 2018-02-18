@@ -94,11 +94,13 @@ If you want to replace the default admin star with an Admin tag, here are some s
 1. Navigate to `freeroam/events/player.js`.
 2. Inside the `PlayerCreated` event, near line 34, add this line:
 ```javascript
-player.tag = 
-{
-    name: 'Admin',
-    color: '#FF0000'
-}
+player.tags = 
+[
+    {
+        name: 'Admin',
+        color: '#FF0000'
+    }
+]
 ```
 
 3. The entire `PlayerCreated` event should now look like this:
