@@ -9,6 +9,7 @@ $(document).ready(function()
     let messages = [];
     let new_messages = [];
     let channels = [];
+    let channel_switch_timeout;
     let current_channel = null;
     let open = true;
     let can_open = true;
@@ -361,6 +362,18 @@ $(document).ready(function()
         {
             const current_index = channels.indexOf(current_channel);
             const new_index = (current_index + 1 >= channels.length) ? 0 : current_index + 1;
+
+            if (channel_switch_timeout) {clearTimeout(channel_switch_timeout);}
+
+            $('div.channels').show();
+
+            channel_switch_timeout = setTimeout(() => 
+            {
+                if (!typing)
+                {
+                    $('div.channels').hide();
+                }
+            }, 2000);
 
             ChangeChannel(channels[new_index]);
         }
