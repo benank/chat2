@@ -155,21 +155,21 @@ jcmp.events.Add("PlayerCreated", player => {
 
 If you want to add multiple tags, you can do so like this:
 ```javascript
-        player.tags = 
-        [
-            {
-                name: 'Admin',
-                color: '#FF0000'
-            },
-            {
-                name: 'Cool',
-                color: '#00BFFF'
-            },
-            {
-                name: 'Special',
-                color: '#F04FE2'
-            }
-        ]
+player.tags = 
+[
+    {
+        name: 'Admin',
+        color: '#FF0000'
+    },
+    {
+        name: 'Cool',
+        color: '#00BFFF'
+    },
+    {
+        name: 'Special',
+        color: '#F04FE2'
+    }
+]
 ```
 4. Now we need to stop the default admin start from appearing. Navigate to `freeroam/events/chat.js`. See this?
 ```javascript
