@@ -242,4 +242,4 @@ Press Y to switch channels if you don't want to click.
 Chat logs are recorded in `chat2/logs` daily. They include player names and steam ids.
 
 ## Additional Notes
-This chat was originally written to be used in tandem with custom gamemodes. However, it still works fine with freeroam. However, command hints will not work with this package.
+This chat was originally written to be used in tandem with custom gamemodes, but it still works fine with freeroam. However, the command hints package will not work with this package.
