@@ -17,7 +17,7 @@ It's pretty simple, except there are a few changes and a little bit of configura
 5. Continue on to the next section to finish up implementing chat2.
 
 ## Using the Package as Dependency
-When you want to use the chat as a dependency for your package, make sure to add it to your `jcmp_dependencies` array. You'll probably want to replace all instance of `chat` with `chat2` in dependencies of your packages. If you don't want to do that, you can change the name of this package to `chat` in the `package.json` in both this directory and within the `client_package` directory. You can then use the following code snippet to get the chat object:
+When you want to use the chat as a dependency for your package, make sure to add it to your `jcmp_dependencies` array. You can then use the following code snippet to get the chat object:
 
 ```javascript
 const chat = jcmp.events.Call('get_chat')[0];
@@ -131,15 +131,36 @@ jcmp.events.Add("PlayerCreated", player => {
 
     if (freeroam.utils.isAdmin(player))
     {
-        player.tag = 
-        {
-            name: 'Admin',
-            color: '#FF0000'
-        }
+        player.tags = 
+        [
+            {
+                name: 'Admin',
+                color: '#FF0000'
+            }
+        ]
     }
 
     jcmp.events.CallRemote("freeroam_player_created", null, JSON.stringify(data));
 });
+```
+
+If you want to add multiple tags, you can do so like this:
+```javascript
+        player.tags = 
+        [
+            {
+                name: 'Admin',
+                color: '#FF0000'
+            },
+            {
+                name: 'Cool',
+                color: '#00BFFF'
+            },
+            {
+                name: 'Special',
+                color: '#F04FE2'
+            }
+        ]
 ```
 4. Now we need to stop the default admin start from appearing. Navigate to `freeroam/events/chat.js`. See this?
 ```javascript
@@ -203,6 +224,9 @@ Hides/shows the chat window.
 
 `Up or Down Key while input is open`
 Go through previously sent messages to easily the same message again.
+
+`Switch channels`
+Press Y to switch channels if you don't want to click.
 
 ## Logging
 Chat logs are recorded in `chat2/logs` daily. They include player names and steam ids.

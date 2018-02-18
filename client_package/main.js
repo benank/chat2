@@ -7,7 +7,7 @@ jcmp.ui.AddEvent('chat_input_state', (s) => {
     chat_ui.BringToFront();
 });
 
-const chat_ui = new WebUIWindow('chat2', `package://chat2/ui/index.html`, new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+const chat_ui = new WebUIWindow('chat2', `package://chat/ui/index.html`, new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 chat_ui.autoResize = true;
 chat_ui.hidden = true;
 

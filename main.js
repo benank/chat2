@@ -1,5 +1,6 @@
 const config = require('./config');
 const fs = require('fs');
+let custom_css;
 
 jcmp.events.AddRemoteCallable('chat_submit_message', (player, message, channel) => {
 
@@ -160,9 +161,11 @@ function FormatPlayerMessage(msg, player, channel)
 			
 			isAdmin = (tag.name.toUpperCase() === "ADMIN");
 		}
-	}
+    }
+
+    const color = (config.using_freeroam) ? player.freeroam.colour : player.color;
 	
-	html = `${htmlTags}<span class="player-name" style="color: ${player.color};" id="n_${player.networkId}"></span>[#FFFFFF]: <span class="message-body" id="m_"></span>`;
+	html = `${htmlTags}<span class="player-name" style="color: ${color};" id="n_${player.networkId}"></span>[#FFFFFF]: <span class="message-body" id="m_"></span>`;
 
 	if (msg.indexOf(`@everyone`) > -1 && isAdmin)
 	{
@@ -245,6 +248,17 @@ const chat =
     {
         const msg = JSON.stringify(FormatMessage(message, null, color, args));
         jcmp.events.CallRemote('chat_message', null, msg);
+    },
+
+    /**
+     * Adds custom CSS to chat.
+     * 
+     * @param {string} css 
+     */
+    addCustomCSS(css)
+    {
+        custom_css = css;
+        jcmp.events.CallRemote('chat/AddCustomCSS', null, custom_css);
     }
 }
 
@@ -256,13 +270,10 @@ jcmp.events.Add('get_chat', () =>
 jcmp.events.AddRemoteCallable('chat_ready', (player) => 
 {
     jcmp.events.CallRemote('chat/InitConfig', player, JSON.stringify(config));
+    jcmp.events.CallRemote('chat/AddCustomCSS', player, custom_css);
 
     const name = player.name;
 
-    chat.broadcast(`${name} joined.`, new RGB(196,196,196), 
-        {timeout: 120, channel: 'Global', style: 'italic', use_name: true});
-
-    console.log(`store name ${name}`);
     jcmp.events.CallRemote('chat2/store_name', player, name);
 
     jcmp.events.CallRemote('chat2/AddPlayer', null, player.networkId, name);

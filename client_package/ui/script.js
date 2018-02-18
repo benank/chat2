@@ -2,11 +2,13 @@ $(document).ready(function()
 {
 
     const type_key = 84; // T
+    const switch_channel_key = 89; // Y
     const close_key = 27; // Escape
     const send_key = 13; // Enter
     const open_key = 116; // F5
     let messages = [];
     let new_messages = [];
+    let channels = [];
     let current_channel = null;
     let open = true;
     let can_open = true;
@@ -236,6 +238,7 @@ $(document).ready(function()
     function CreateNewChannel(name)
     {
         messages[name] = [];
+        channels.push(name);
 
         let channel = document.createElement("span");
         channel.className = "channel";
@@ -353,6 +356,13 @@ $(document).ready(function()
             jcmp.ShowCursor();
             $('html').css('pointer-events', 'auto');
             jcmp.CallEvent('chat_input_state', true);
+        }
+        else if (keycode == switch_channel_key && open && !typing && !transitioning)
+        {
+            const current_index = channels.indexOf(current_channel);
+            const new_index = (current_index + 1 >= channels.length) ? 0 : current_index + 1;
+
+            ChangeChannel(channels[new_index]);
         }
         else if (keycode == 9 && open && typing) // tab
         {
