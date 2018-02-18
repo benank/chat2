@@ -14,7 +14,8 @@ It's pretty simple, except there are a few changes and a little bit of configura
 2. Install the chat2 package.
 3. Inside `config.js`, modify it to include the channels that you want, in `default_channels`. If a channel with the name `Local` is specified, then it will be used as a local chat channel where you can only talk to players who are nearby. This local chat distance is specified by `local_distance` in `config.js`.
 4. Admins won't have their stars anymore (though it is possible to readd them, but that will not be covered here), and if you implemented custom tags, you'll need to do a little bit of work to get tags to appear again. See the [Tags](#tags) section on more information about how you can implement nametags.
-5. Continue on to the next section to finish up implementing chat2.
+5. If you aren't using the freeroam package, set `using_freeroam` in `config.js` to false.
+6. Continue on to the next section to finish up implementing chat2.
 
 ## Using the Package as Dependency
 When you want to use the chat as a dependency for your package, make sure to add it to your `jcmp_dependencies` array. You can then use the following code snippet to get the chat object:
