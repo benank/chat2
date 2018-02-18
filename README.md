@@ -82,18 +82,6 @@ jcmp.events.Add('PlayerDeath', player =>
 ## Tags
 This chat supports neat looking tags. To enable this feature, you must give a player a tag. This can be done like so:
 ```javascript
-player.tag = 
-{
-    name: 'Admin',
-    color: '#FF0000'
-}
-```
-
-If you want to replace the default admin star with an Admin tag, here are some steps on doing that.
-
-1. Navigate to `freeroam/events/player.js`.
-2. Inside the `PlayerCreated` event, near line 34, add this line:
-```javascript
 player.tags = 
 [
     {
@@ -101,6 +89,25 @@ player.tags =
         color: '#FF0000'
     }
 ]
+```
+
+If you want to replace the default admin star with an Admin tag, here are some steps on doing that.
+
+1. Navigate to `freeroam/events/player.js`.
+2. Inside the `PlayerCreated` event, near line 34, add this line:
+```javascript
+
+if (freeroam.utils.isAdmin(player))
+{
+    player.tags = 
+    [
+        {
+            name: 'Admin',
+            color: '#FF0000'
+        }
+    ]
+}
+
 ```
 
 3. The entire `PlayerCreated` event should now look like this:
