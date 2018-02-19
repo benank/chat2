@@ -68,6 +68,20 @@ jcmp.events.Add('PlayerDeath', () =>
 });
 ```
 
+### `chat.playerSendToChannel(player: Player, message: string, channel: string)`
+* player: Player who sent the message
+* message: message string
+* channel: the channel that you want the player's message to be sent to
+* This method is used to send player messages to different channels, for example when they use commands and you want their message to be sent to a different channel than the one it was typed on.
+
+Example:
+```
+jcmp.events.Add('chat_message', (player, message, channel) =>
+  chat.playerSendToChannel(player, message, 'Local');
+});
+```
+The above example overrides whatever channel the player sent a message to and instead sends it to the Local channel.
+
 ## Formatting Messages
 Your messages can include any html, except if `use_name` is true in `args`.
 If you want your message to include multiple colors, you can do that by using color tags in this format: `[#RRGGBB]`

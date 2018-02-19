@@ -3,7 +3,19 @@ const fs = require('fs');
 let custom_css;
 
 jcmp.events.AddRemoteCallable('chat_submit_message', (player, message, channel) => {
+    PlayerSendMessage(player, message, channel);
+});
 
+/**
+ * When a player sends a message, it goes through here.
+ * 
+ * @param {object} player 
+ * @param {string} message 
+ * @param {string} channel 
+ */
+
+function PlayerSendMessage(player, message, channel)
+{
     message = message.trim();
     if (message.startsWith('/')) 
     {
@@ -53,7 +65,7 @@ jcmp.events.AddRemoteCallable('chat_submit_message', (player, message, channel) 
         }
 
     }
-});
+}
 
 /**
  * Formats a message.
@@ -145,7 +157,7 @@ function FormatPlayerMessage(msg, player, channel)
     let html = '';
     const obj = {
         html: html,
-        name: player.name,
+        name: (config.using_freeroam) ? player.escapedNametagName : player.name,
         msg: msg,
         channel: channel,
         pid: player.networkId
@@ -259,6 +271,18 @@ const chat =
     {
         custom_css = css;
         jcmp.events.CallRemote('chat/AddCustomCSS', null, custom_css);
+    },
+
+    /**
+     * Sends a message from a player to a specific channel.
+     * 
+     * @param {*} player 
+     * @param {*} message 
+     * @param {*} channel 
+     */
+    playerSendToChannel(player, message, channel)
+    {
+        PlayerSendMessage(player, message, channel);
     }
 }
 
@@ -272,7 +296,7 @@ jcmp.events.AddRemoteCallable('chat_ready', (player) =>
     jcmp.events.CallRemote('chat/InitConfig', player, JSON.stringify(config));
     jcmp.events.CallRemote('chat/AddCustomCSS', player, custom_css);
 
-    const name = player.name;
+    const name = (config.using_freeroam) ? player.escapedNametagName : player.name;
 
     jcmp.events.CallRemote('chat2/store_name', player, name);
 
@@ -283,7 +307,7 @@ jcmp.events.AddRemoteCallable('chat_ready', (player) =>
     {
         if (p.networkId != player.networkId)
         {
-            data.push({id: p.networkId, name: p.name});
+            data.push({id: p.networkId, name: (config.using_freeroam) ? p.escapedNametagName : p.name});
         }
         
     });
