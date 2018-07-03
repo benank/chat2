@@ -1,6 +1,6 @@
 const config = require('./config');
 const fs = require('fs');
-let custom_css;
+let custom_css = '';
 
 jcmp.events.AddRemoteCallable('chat_submit_message', (player, message, channel) => {
 
